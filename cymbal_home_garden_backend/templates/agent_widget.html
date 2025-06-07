@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Widget</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='agent_widget.css') }}">
+</head>
+<body>
+    <div class="agent-widget" style="display: none;">
+        <div class="widget-header">
+            <div class="logo-title">
+                <span class="logo"><i class="fa-solid fa-leaf"></i></span>
+                <span class="title">Customer Service Agent</span>
+            </div>
+            <div class="status-dot"></div>
+            <div class="header-controls">
+                <span class="minimize-btn"><i class="fa-solid fa-minus"></i></span>
+                <span class="close-btn"><i class="fa-solid fa-times"></i></span>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="video-display-container" style="display: none;"> {/* Visible in video mode */}
+                <video id="agent-video-element" autoplay playsinline></video>
+                <button class="stop-video-btn">
+                    <i class="fa-solid fa-video-slash"></i> Stop sharing video
+                </button>
+            </div>
+            <div class="text-chat-container" style="display: none;">
+                <div class="message-area">
+                    <!-- Messages will be dynamically added here by JS -->
+                </div>
+            </div>
+            <!-- New Camera View Elements (for Phase 2) -->
+            <div class="camera-view-container" style="display: none;">
+                <video id="cameraFeed" autoplay playsinline></video>
+                <canvas id="photoCanvas" style="display: none;"></canvas>
+                <div class="camera-controls">
+                    <button class="capture-btn footer-icon" title="Capture Photo"><i class="fa-solid fa-camera-retro"></i></button>
+                    <button class="cancel-camera-btn footer-icon" title="Cancel Camera"><i class="fa-solid fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-footer">
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" placeholder="Type your message...">
+                <button class="send-btn" title="Send"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+            <div class="footer-action-icons">
+                <div class="footer-icon mic-icon" title="Toggle Microphone"><i class="fa-solid fa-microphone"></i></div>
+                <div class="footer-icon image-options-toggle-btn" title="Image Options"><i class="fa-solid fa-image"></i></div>
+            </div>
+            <!-- New Image Options Popup -->
+            <div class="image-options-popup" style="display: none;">
+                <button class="camera-btn footer-icon" title="Use Camera"><i class="fa-solid fa-camera"></i> <span class="icon-text">Camera</span></button>
+                <button class="upload-local-btn footer-icon" title="Upload Locally"><i class="fa-solid fa-upload"></i> <span class="icon-text">Upload</span></button>
+            </div>
+        </div>
+        <input type="file" id="imageUploadInput" accept="image/*" style="display: none;">
+
+        <!-- Checkout Modals -->
+        <!-- Delivery Modal -->
+        <div id="delivery-modal" class="checkout-modal">
+            <div class="checkout-modal-content">
+                <button class="modal-close-btn" aria-label="Close">&times;</button>
+                <div class="checkout-modal-header">
+                    <h2>Delivery Details</h2>
+                </div>
+                <div class="checkout-modal-body">
+                    <!-- Delivery form fields will go here -->
+                    <p>Delivery form content...</p>
+                </div>
+                <div class="checkout-modal-footer">
+                    <button id="continue-to-payment-btn" class="btn btn-primary">Continue to Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Modal -->
+        <div id="payment-modal" class="checkout-modal">
+            <div class="checkout-modal-content">
+                <button class="modal-close-btn" aria-label="Close">&times;</button>
+                <div class="checkout-modal-header">
+                    <h2>Payment Information</h2>
+                </div>
+                <div class="checkout-modal-body">
+                    <!-- Payment form fields will go here -->
+                    <p>Payment form content...</p>
+                </div>
+                <div class="checkout-modal-footer">
+                    <button id="back-to-delivery-btn" class="btn btn-secondary">Back</button>
+                    <button id="submit-payment-btn" class="btn btn-primary">Submit Payment</button>
+                </div>
+            </div>
+        </div>
+        <!-- End Checkout Modals -->
+
+    </div>
+    <script type="module" src="{{ url_for('static', filename='agent_widget.js') }}"></script>
+</body>
+</html>

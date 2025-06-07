@@ -1,0 +1,25 @@
+{
+  "name": "adk-samples",
+  "version": "1.0.0",
+  "description": "[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)",
+  "main": "proxy-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/google/adk-samples.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/google/adk-samples/issues"
+  },
+  "homepage": "https://github.com/google/adk-samples#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "http-proxy-middleware": "^3.0.5"
+  }
+}

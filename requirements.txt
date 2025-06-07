@@ -1,0 +1,15 @@
+Flask>=2.0
+google-cloud-retail==2.1.0
+requests>=2.25.0             # For test_api.py
+google-adk
+pydantic-settings
+pydantic
+python-dotenv
+fastapi
+starlette
+uvicorn
+google-genai==1.14.0
+tenacity
+orjson
+
+python-dotenv==0.21.1

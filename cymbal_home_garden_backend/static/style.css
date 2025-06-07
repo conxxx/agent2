@@ -1,0 +1,1200 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Theme Variables */
+:root {
+    /* Light Theme Variables (Updated to match aa.jpg) */
+    --background-color-light: #F0F2F1; /* Light greenish gray page background */
+    --text-color-light: #3A3A3A;      /* Dark gray text */
+    --header-bg-light: #FFFFFF;       /* White header background */
+    --sidebar-bg-light: #FFFFFF;      /* White sidebar background */
+    --card-bg-light: #FFFFFF;         /* White product card background */
+    --card-border-light: #E8E8E8;     /* Light gray border for cards */
+    --card-shadow-light: rgba(0, 0, 0, 0.05); /* Subtle shadow for cards */
+    --button-bg-light: #58B079;       /* Primary green for buttons */
+    --button-text-light: #FFFFFF;
+    --secondary-button-bg-light: #E9F0EB; /* Light green/gray for secondary buttons */
+    --secondary-button-text-light: #58B079; /* Green text for secondary */
+    --input-border-light: #D1D1D1;
+    --section-title-border-light: #58B079; /* Green for title underlines/accents */
+    --accent-color-green-light: #58B079;
+    --text-color-subtle-light: #757575; /* For less prominent text */
+    --border-radius-main: 8px; /* Main border radius for elements */
+    --border-radius-large: 12px; /* For larger elements if needed */
+
+
+    --footer-bg-light: #333;
+    --footer-text-light: #f4f4f4;
+    --modal-bg-light: #fff;
+    --modal-shadow-light: rgba(0,0,0,0.2);
+    --checkout-step-active-bg-light: var(--accent-color-green-light);
+    --checkout-step-active-text-light: #fff;
+    --checkout-step-inactive-bg-light: #e9ecef;
+    --checkout-step-inactive-text-light: #495057;
+    --agent-info-text-light: var(--text-color-subtle-light);
+
+    /* Glassmorphism Variables - Light (toned down, used sparingly if at all) */
+    --glass-bg-light: rgba(255, 255, 255, 0.85); /* Less transparent */
+    --glass-blur-light: 5px; /* Less blur */
+    --glass-border-radius-light: var(--border-radius-main);
+    --glass-shadow-light: rgba(0, 0, 0, 0.1);
+    --glass-border-color-light: rgba(255, 255, 255, 0.3);
+
+    /* New variables for agent launcher and specific buttons - Light */
+    --agent-launcher-bg-light: #0A2E1A; 
+    --agent-launcher-icon-color-light: #4CAF50; 
+    --agent-launcher-hover-bg-light: #154225; 
+    --button-danger-bg-light: #e74c3c; 
+    --button-danger-text-light: #fff;
+    --button-danger-hover-bg-light: #a93226; 
+    --button-neutral-bg-light: #AFB6B2; /* Neutral gray-green */
+    --button-neutral-text-light: #fff;
+    --button-neutral-hover-bg-light: #8C9490;
+
+    /* Dark Theme Variables (Can be refined later if dark mode needs to match a specific image) */
+    --background-color-dark: #1E2421;
+    --text-color-dark: #EAEAEA;
+    --header-bg-dark: #2C322F;
+    --sidebar-bg-dark: #252A27;
+    --card-bg-dark: #2A2F2C;
+    --card-border-dark: #3D4340;
+    --button-bg-dark: #66BB6A; /* Lighter green for dark mode */
+    --button-text-dark: #111;
+    --secondary-button-bg-dark: #3A403D;
+    --secondary-button-text-dark: #66BB6A;
+    --input-border-dark: #545458;
+    --section-title-border-dark: #66BB6A;
+    --accent-color-green-dark: #66BB6A;
+    --text-color-subtle-dark: #AAAAAA;
+
+    --footer-bg-dark: #111;
+    --footer-text-dark: #ccc;
+    --modal-bg-dark: #282828; 
+    --modal-shadow-dark: rgba(0,0,0,0.3);
+    --checkout-step-active-bg-dark: var(--accent-color-green-dark);
+    --checkout-step-active-text-dark: #fff;
+    --checkout-step-inactive-bg-dark: #343a40;
+    --checkout-step-inactive-text-dark: #adb5bd;
+    --agent-info-text-dark: var(--text-color-subtle-dark);
+
+    /* Glassmorphism Variables - Dark */
+    --glass-bg-dark: rgba(40, 40, 40, 0.75);
+    --glass-blur-dark: 12px;
+    --glass-border-radius-dark: var(--border-radius-main);
+    --glass-shadow-dark: rgba(0, 0, 0, 0.25);
+    --glass-border-color-dark: rgba(255, 255, 255, 0.15);
+
+    /* New variables for agent launcher and specific buttons - Dark */
+    --agent-launcher-bg-dark: #05170E; 
+    --agent-launcher-icon-color-dark: #66BB6A; 
+    --agent-launcher-hover-bg-dark: #0D2B1A; 
+    --button-danger-bg-dark: #D32F2F; 
+    --button-danger-text-dark: #fff;
+    --button-danger-hover-bg-dark: #9a1616; 
+    --button-neutral-bg-dark: #616161; 
+    --button-neutral-text-dark: #fff;
+    --button-neutral-hover-bg-dark: #333333;
+
+    /* Default to light theme - Current Variables */
+    --current-bg: var(--background-color-light);
+    --current-text: var(--text-color-light);
+    --current-header-bg: var(--header-bg-light);
+    --current-sidebar-bg: var(--sidebar-bg-light);
+    --current-footer-bg: var(--footer-bg-light);
+    --current-footer-text: var(--footer-text-light);
+    --current-card-bg: var(--card-bg-light);
+    --current-card-border: var(--card-border-light);
+    --current-card-shadow: var(--card-shadow-light);
+    --current-button-bg: var(--button-bg-light);
+    --current-button-text: var(--button-text-light);
+    --current-secondary-button-bg: var(--secondary-button-bg-light);
+    --current-secondary-button-text: var(--secondary-button-text-light);
+    --current-modal-bg: var(--modal-bg-light);
+    --current-modal-shadow: var(--modal-shadow-light);
+    --current-input-border: var(--input-border-light);
+    --current-section-title-border: var(--section-title-border-light);
+    --current-checkout-step-active-bg: var(--checkout-step-active-bg-light);
+    --current-checkout-step-active-text: var(--checkout-step-active-text-light);
+    --current-checkout-step-inactive-bg: var(--checkout-step-inactive-bg-light);
+    --current-checkout-step-inactive-text: var(--checkout-step-inactive-text-light);
+    --current-agent-info-text: var(--agent-info-text-light);
+    --current-accent-color-green: var(--accent-color-green-light);
+    --current-text-color-subtle: var(--text-color-subtle-light);
+    --current-border-radius: var(--border-radius-main);
+
+
+    /* Current Glassmorphism Variables (use sparingly) */
+    --current-glass-bg: var(--glass-bg-light);
+    --current-glass-blur: var(--glass-blur-light);
+    --current-glass-border-radius: var(--glass-border-radius-light);
+    --current-glass-shadow: var(--glass-shadow-light);
+    --current-glass-border-color: var(--glass-border-color-light);
+
+    /* New current variables defaulting to light */
+    --current-agent-launcher-bg: var(--agent-launcher-bg-light);
+    --current-agent-launcher-icon-color: var(--agent-launcher-icon-color-light);
+    --current-agent-launcher-hover-bg: var(--agent-launcher-hover-bg-light);
+    --current-button-danger-bg: var(--button-danger-bg-light);
+    --current-button-danger-text: var(--button-danger-text-light);
+    --current-button-danger-hover-bg: var(--button-danger-hover-bg-light);
+    --current-button-neutral-bg: var(--button-neutral-bg-light);
+    --current-button-neutral-text: var(--button-neutral-text-light);
+    --current-button-neutral-hover-bg: var(--button-neutral-hover-bg-light);
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Updated font */
+    line-height: 1.6;
+    background-color: var(--current-bg);
+    color: var(--current-text);
+    transition: background-color 0.3s, color 0.3s;
+    padding-top: 70px; /* Adjust if header height changes significantly */
+}
+
+body.night-mode {
+    --current-bg: var(--background-color-dark);
+    --current-text: var(--text-color-dark);
+    --current-header-bg: var(--header-bg-dark);
+    --current-sidebar-bg: var(--sidebar-bg-dark);
+    --current-footer-bg: var(--footer-bg-dark);
+    --current-footer-text: var(--footer-text-dark);
+    --current-card-bg: var(--card-bg-dark);
+    --current-card-border: var(--card-border-dark);
+    --current-card-shadow: var(--glass-shadow-dark); /* Dark mode shadow can be different */
+    --current-button-bg: var(--button-bg-dark);
+    --current-button-text: var(--button-text-dark);
+    --current-secondary-button-bg: var(--secondary-button-bg-dark);
+    --current-secondary-button-text: var(--secondary-button-text-dark);
+    --current-modal-bg: var(--modal-bg-dark);
+    --current-modal-shadow: var(--modal-shadow-dark);
+    --current-input-border: var(--input-border-dark);
+    --current-section-title-border: var(--section-title-border-dark);
+    --current-checkout-step-active-bg: var(--checkout-step-active-bg-dark);
+    --current-checkout-step-active-text: var(--checkout-step-active-text-dark);
+    --current-checkout-step-inactive-bg: var(--checkout-step-inactive-bg-dark);
+    --current-checkout-step-inactive-text: var(--checkout-step-inactive-text-dark);
+    --current-agent-info-text: var(--agent-info-text-dark);
+    --current-accent-color-green: var(--accent-color-green-dark);
+    --current-text-color-subtle: var(--text-color-subtle-dark);
+
+
+    /* Current Glassmorphism Variables - Night Mode Override */
+    --current-glass-bg: var(--glass-bg-dark);
+    --current-glass-blur: var(--glass-blur-dark);
+    /* --current-glass-border-radius: var(--glass-border-radius-dark); */ /* Uses main border radius */
+    --current-glass-shadow: var(--glass-shadow-dark);
+    --current-glass-border-color: var(--glass-border-color-dark);
+
+    /* New current variable overrides for night mode */
+    --current-agent-launcher-bg: var(--agent-launcher-bg-dark);
+    --current-agent-launcher-icon-color: var(--agent-launcher-icon-color-dark);
+    --current-agent-launcher-hover-bg: var(--agent-launcher-hover-bg-dark);
+    --current-button-danger-bg: var(--button-danger-bg-dark);
+    --current-button-danger-text: var(--button-danger-text-dark);
+    --current-button-danger-hover-bg: var(--button-danger-hover-bg-dark);
+    --current-button-neutral-bg: var(--button-neutral-bg-dark);
+    --current-button-neutral-text: var(--button-neutral-text-dark);
+    --current-button-neutral-hover-bg: var(--button-neutral-hover-bg-dark);
+}
+
+header {
+    background: transparent; /* Make header background transparent */
+    color: var(--current-text);
+    padding: 0.5rem 2rem; /* Adjusted padding */
+    height: 70px; /* Fixed height for header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 1px solid var(--current-card-border);  Removed border */
+    position: fixed; /* Fixed header */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Ensure header is above sidebar content but below modals */
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.05); Removed shadow */
+}
+
+/* Adjust margin for when sidebar is open */
+body.cart-sidebar-expanded header {
+    padding-left: calc(300px + 2rem); /* Sidebar width + original padding */
+    transition: padding-left 0.3s ease-in-out;
+}
+
+
+.header-logo-nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo-text {
+    font-size: 1.8rem; /* Larger logo text */
+    font-weight: 600; /* Bold logo */
+    color: var(--current-accent-color-green); /* Green logo text */
+    margin-right: 2rem;
+}
+
+.header-main-nav a {
+    color: var(--current-text);
+    text-decoration: none;
+    margin-right: 1.5rem; /* Spacing between nav items */
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.header-main-nav a:hover,
+.header-main-nav a.active { /* Add .active class for current page if implemented */
+    color: var(--current-accent-color-green);
+    font-weight: 500;
+}
+.header-main-nav a:last-child {
+    margin-right: 0;
+}
+
+.header-search-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--current-bg); /* Match page background or slightly different */
+    border-radius: var(--current-border-radius);
+    padding: 0.4rem 0.8rem;
+    width: 350px; /* Adjust width as needed */
+    border: 1px solid var(--current-input-border);
+}
+
+.search-icon-prefix {
+    color: var(--current-text-color-subtle);
+    margin-right: 0.5rem;
+}
+
+.main-search-input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: var(--current-text);
+    font-size: 0.9rem;
+}
+.main-search-input::placeholder {
+    color: var(--current-text-color-subtle);
+}
+
+.header-title-actions {
+    display: flex;
+    align-items: center;
+}
+.header-page-title-container {
+    margin-right: 1rem; /* Spacing before agent info */
+}
+.header-page-title-text {
+    font-size: 0.9rem; /* Made smaller */
+    font-weight: 400; /* Made lighter */
+    color: var(--current-text-color-subtle); /* Less prominent color */
+    margin: 0; /* Remove default H2 margin */
+}
+
+.agent-demo-info {
+    font-size: 0.8rem;
+    color: var(--current-agent-info-text);
+    margin-right: 1rem; /* Spacing before night mode button */
+}
+#current-customer-id {
+    font-weight: bold;
+}
+
+.header-title-actions button,
+.header-title-actions .header-action-icon {
+    margin-left: 1rem; /* Spacing between action items */
+}
+
+#night-mode-toggle { 
+    padding: 0.5rem 1rem;
+    background-color: var(--current-secondary-button-bg);
+    color: var(--current-secondary-button-text);
+    border: 1px solid var(--current-accent-color-green); /* Green border for secondary */
+    border-radius: var(--current-border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+    font-size: 0.9rem;
+}
+#night-mode-toggle:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.header-action-icon {
+    font-size: 1.3rem; /* Icon size */
+    color: var(--current-text-color-subtle);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.header-action-icon:hover {
+    color: var(--current-accent-color-green);
+}
+
+/* Old header h1 styling - keep if needed, or remove if .header-page-title-text covers it */
+header h1 { /* This was for the big "Cymbal Home Garden" title, now in main content */
+    display: none; /* Hide the old H1 in header */
+}
+
+
+/* New Hero Section Styles */
+#custom-hero-section {
+    padding: 3rem 2rem; /* Ample padding */
+    text-align: left; /* Align text to the left as per image */
+    background-color: transparent; /* Uses main page background */
+    /* If using the big image as background for this section: */
+    background-image: url('/static/images/big image.png'); /* Make sure this path is correct */
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius-large); /* Optional rounded corners for the banner */
+    margin-bottom: 2rem; /* Space below hero */
+    /* Add a subtle overlay if text readability is an issue over the image */
+    /* box-shadow: inset 0 0 0 1000px rgba(240, 242, 241, 0.3); /* Light overlay */
+}
+body.night-mode #custom-hero-section {
+    /* Dark overlay for night mode if text is light */
+    /* box-shadow: inset 0 0 0 1000px rgba(30, 36, 33, 0.5); */
+}
+
+
+.custom-hero-content-wrapper {
+    max-width: 700px; /* Limit width of text content */
+    margin: 0 auto; /* Center the content if a max-width is set */
+    /* If text is on the left of hero as in image, remove margin: 0 auto and set margin-right: auto */
+    margin-left: 0; 
+    margin-right: auto;
+}
+
+.main-content-title { /* Was .main-title-green */
+    font-size: 2.8rem; /* Large title */
+    color: var(--current-accent-color-green); /* Green color */
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+#custom-hero-section .subtitle {
+    font-size: 1.3rem;
+    color: var(--current-text);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+#custom-hero-section .description-text {
+    font-size: 1rem;
+    color: var(--current-text-color-subtle);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+}
+#custom-hero-section .delivery-info {
+    font-size: 0.9rem;
+    color: var(--current-text);
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+#custom-hero-section .delivery-info span {
+    background-color: var(--current-secondary-button-bg);
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--current-border-radius);
+    color: var(--current-accent-color-green);
+}
+
+
+.custom-hero-actions .btn-hero {
+    padding: 0.8rem 1.8rem;
+    border-radius: var(--current-border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.custom-hero-actions .btn-primary-hero {
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    border: 1px solid var(--current-button-bg);
+}
+.custom-hero-actions .btn-primary-hero:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+}
+
+.custom-hero-actions .btn-secondary-hero {
+    background-color: transparent;
+    color: var(--current-button-bg);
+    border: 1px solid var(--current-button-bg);
+}
+.custom-hero-actions .btn-secondary-hero:hover {
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+    transform: translateY(-2px);
+}
+
+/* Category Section */
+.category-section {
+    margin-bottom: 2rem;
+    padding: 0 2rem; /* Match main padding */
+}
+.category-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--current-text);
+    margin-bottom: 1rem;
+}
+.category-highlight-text {
+    color: var(--current-accent-color-green);
+    font-weight: 600;
+}
+
+
+/* Main content area */
+main {
+    padding: 2rem; /* General padding for main content */
+    max-width: 100%; /* Allow full width usage by default */
+    margin: auto;
+    /* Margin-left is handled by body.cart-sidebar-expanded */
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 1.5rem;
+    margin-bottom: 2rem; 
+}
+
+.product-card {
+    background-color: var(--current-card-bg); /* Solid white background */
+    border: 1px solid var(--current-card-border);
+    border-radius: var(--current-border-radius); /* Consistent border radius */
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 8px var(--current-card-shadow); /* Subtle shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Remove glassmorphism */
+    backdrop-filter: none; 
+    -webkit-backdrop-filter: none;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px var(--current-card-shadow); /* Slightly more prominent shadow on hover */
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 180px; /* Increased height for product image */
+    object-fit: cover; /* Ensure image covers the area well */
+    border-radius: calc(var(--current-border-radius) - 4px); 
+    margin-bottom: 1rem; /* Increased margin */
+}
+
+.product-card h3 {
+    font-size: 1.1rem; /* Slightly smaller than before to fit design */
+    margin-bottom: 0.5rem;
+    color: var(--current-text);
+    font-weight: 500; /* Medium weight for product title */
+}
+
+.product-card .price {
+    font-size: 1.2rem; /* Larger price */
+    font-weight: 600; /* Bold price */
+    color: var(--current-accent-color-green); /* Green price */
+    margin-bottom: 0.75rem; /* Increased margin */
+}
+
+body.night-mode .product-card .price {
+    color: var(--current-accent-color-green); /* Keep green for dark mode or use a light accent */
+}
+
+.product-card .description {
+    font-size: 0.85rem; /* Slightly smaller description */
+    margin-bottom: 1rem;
+    color: var(--current-text-color-subtle); /* Subtle color for description */
+    flex-grow: 1; 
+    line-height: 1.5;
+}
+
+.product-card .product-id-display { 
+    font-size: 0.7rem;
+    color: var(--current-text-color-subtle);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+    word-break: break-all;
+}
+
+.product-card button.add-to-cart-btn { 
+    background-color: var(--current-button-bg); /* Green button */
+    color: var(--current-button-text);
+    border: none;
+    padding: 0.7rem 1.2rem; /* Adjusted padding */
+    border-radius: var(--current-border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 0.9rem;
+    font-weight: 500; /* Medium weight for button text */
+    width: 100%; 
+    margin-top: auto; 
+}
+
+.product-card button.add-to-cart-btn:hover {
+    opacity: 0.85; /* Standard hover opacity */
+    transform: scale(1.02); /* Slight scale effect */
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--current-footer-bg);
+    color: var(--current-footer-text);
+    margin-top: 2rem;
+    border-top: 2px solid var(--current-button-bg); 
+    /* Adjust margin-left if sidebar is expanded */
+}
+body.cart-sidebar-expanded footer {
+    margin-left: 300px; /* Match sidebar width */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0.5rem;
+    border-bottom: 1px solid var(--current-card-border); /* Lighter dashed border */
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+}
+.cart-item-details h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem; /* Slightly smaller cart item title */
+    font-weight: 500;
+}
+.cart-item-details p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--current-text-color-subtle);
+}
+.cart-item-details .product-id-display {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    margin-top: 0.2rem;
+}
+
+.cart-item-actions button {
+    background-color: transparent; /* Remove button */
+    color: var(--current-button-danger-bg); /* Red color for remove icon/text */
+    border: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--current-border-radius);
+    cursor: pointer;
+    font-size: 1rem; /* Larger remove icon */
+    transition: color 0.2s;
+}
+.cart-item-actions button:hover {
+    color: var(--current-button-danger-hover-bg);
+}
+
+.cart-summary { /* Used in old modal, might not be needed if sidebar handles all */
+    margin-top: 1.5rem;
+    text-align: right;
+}
+.cart-summary p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.cart-summary button {
+    padding: 0.7rem 1.3rem;
+    border: none;
+    border-radius: var(--current-border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-left: 0.5rem;
+    font-weight: bold;
+}
+.cart-summary button:hover {
+    transform: translateY(-1px);
+}
+
+#clear-cart-btn { /* For old modal, sidebar has #cart-sidebar-clear-btn */
+    background-color: var(--current-button-neutral-bg);
+    color: var(--current-button-neutral-text);
+}
+#clear-cart-btn:hover {
+    background-color: var(--current-button-neutral-hover-bg);
+}
+
+
+/* Recommendations Section */
+#recommendations-section {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--current-card-border); /* Lighter border */
+}
+
+#recommendations-section h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    color: var(--current-text);
+    font-weight: 500;
+}
+
+/* New Left Sidebar Cart Styles */
+.cart-sidebar {
+    position: fixed;
+    left: 0;
+    top: 70px; /* Below fixed header */
+    width: 300px; /* Width as per image */
+    height: calc(100vh - 70px); /* Full height below header */
+    background-color: var(--current-sidebar-bg); /* Solid background for sidebar */
+    border-right: 1px solid var(--current-card-border);
+    box-shadow: 5px 0px 15px rgba(0, 0, 0, 0.1); /* More pronounced shadow */
+    /* No glassmorphism */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+    z-index: 998; /* Below header but above main content */
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem; /* Slightly increased padding */
+    transform: translateX(0); /* Keep it open */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.cart-sidebar.collapsed { /* Style for collapsing if ever re-enabled */
+    transform: translateX(-100%);
+}
+
+.cart-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem; /* Adjusted margin */
+    padding-bottom: 1.2rem; /* Adjusted padding */
+    border-bottom: 1px solid var(--current-card-border);
+}
+
+.cart-sidebar-header h3 {
+    margin: 0;
+    font-size: 1.25rem; /* Slightly larger cart title */
+    font-weight: 600; /* Bolder */
+    color: var(--current-accent-color-green);
+}
+
+.cart-sidebar-toggle { /* Button is hidden, but styles kept if re-enabled */
+    display: none; /* Hiding toggle button as per image */
+    background: none;
+    border: 1px solid var(--current-button-bg);
+    color: var(--current-button-bg);
+    padding: 5px 10px;
+    border-radius: var(--current-border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.cart-sidebar-toggle:hover {
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+}
+
+#cart-sidebar-items-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.cart-sidebar-footer {
+    padding-top: 1.2rem; /* Adjusted padding */
+    border-top: 1px solid var(--current-card-border);
+    text-align: right;
+}
+
+.cart-sidebar-footer p {
+    font-size: 1.15rem; /* Slightly larger subtotal text */
+    font-weight: 600; /* Bold subtotal */
+    margin-bottom: 1rem;
+    text-align: left; /* Align subtotal text left */
+    color: var(--current-text);
+}
+
+.cart-sidebar-footer button {
+    padding: 0.7rem 1.2rem; /* Increased padding for better clickability */
+    border: none;
+    border-radius: var(--current-border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: 500; /* Medium weight for button text */
+    font-size: 0.9rem;
+    width: 100%; /* Make buttons full width in footer */
+}
+.cart-sidebar-footer button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+#cart-sidebar-clear-btn {
+    background-color: var(--current-button-neutral-bg);
+    color: var(--current-button-neutral-text);
+    border: 1px solid var(--current-button-neutral-hover-bg); /* Added subtle border */
+}
+#cart-sidebar-clear-btn:hover {
+    background-color: var(--current-button-neutral-hover-bg);
+    color: var(--current-button-neutral-text); /* Ensure text color remains on hover */
+}
+
+/* Main Content Area Adjustment when sidebar is expanded (always in this case) */
+body.cart-sidebar-expanded main {
+    margin-left: 300px; /* Should match .cart-sidebar width */
+    transition: margin-left 0.3s ease-in-out;
+}
+/* Default state (no sidebar or sidebar collapsed) */
+body main {
+    margin-left: 0; 
+    transition: margin-left 0.3s ease-in-out;
+}
+
+
+/* Flying item animation, input styling, modal styling mostly unchanged unless specified */
+/* Ensure border-radius consistency */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"], /* Added search type */
+textarea,
+select {
+    border-radius: var(--current-border-radius);
+    padding: 0.6rem; 
+    border: 1px solid var(--current-input-border);
+    background-color: var(--current-card-bg); /* Inputs match card bg */
+    color: var(--current-text);
+}
+
+button, 
+input[type="button"], 
+input[type="submit"], 
+input[type="reset"] {
+    border-radius: var(--current-border-radius);
+    padding: 0.6rem 1.2rem; 
+    border: none; 
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Checkout Modals */
+.checkout-modal {
+    display: none; /* Initially hidden, JS will set to flex */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* No background color for the main container, it's purely for layout */
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    background: none !important; /* Force no background for the main overlay */
+
+    visibility: hidden; /* Hidden by default, JS and .popping-in will make it visible */
+    pointer-events: none; /* Main container never blocks clicks */
+    /* Transition for visibility ensures it hides/shows in sync with content if needed */
+    transition: visibility 0s linear 0.3s; 
+}
+
+.checkout-modal.popping-in {
+    visibility: visible;
+    /* pointer-events: auto; <-- REMOVE THIS LINE, base class has pointer-events: none */
+    opacity: 1;           /* Ensure container is opaque */
+    background: none !important; /* Also ensure no background when popping in */
+    transition-delay: 0s; /* Main container becomes visible immediately with content */
+}
+
+.checkout-modal.popping-out {
+    visibility: hidden; /* Hide main container after content animates out */
+    /* Delay ensures content animation finishes before container might hide */
+    transition-delay: 0.3s; 
+}
+
+.checkout-modal .checkout-modal-content {
+    background-image: url('/static/images/pt.jpg');
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.5); /* Darker overlay for readability */
+    color: #fff; /* White text for contrast */
+    padding: 2rem;
+    border-radius: var(--border-radius-large);
+    box-shadow: 0 10px 30px var(--current-modal-shadow);
+    width: 90%;
+    max-width: 600px; 
+    text-align: left;
+    position: relative;
+
+    /* Animation properties are now on the content itself */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95) translateY(-20px);
+    pointer-events: none; /* Content is non-interactive initially */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s linear 0.3s;
+    /* Visibility transition is delayed to hide after opacity/transform */
+}
+
+.checkout-modal.popping-in .checkout-modal-content {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    pointer-events: auto; /* Content becomes interactive */
+    /* Transitions start immediately for showing */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s linear 0s;
+}
+
+.checkout-modal.popping-out .checkout-modal-content {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95) translateY(-20px);
+    pointer-events: none; /* Content becomes non-interactive */
+    /* Transitions start immediately for hiding */
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0s linear 0.3s;
+}
+
+/* The .checkout-modal.popping-in .checkout-modal-content and */
+/* .checkout-modal.popping-out .checkout-modal-content for transform animations are removed. */
+/* If there was a different original animation, those classes would need different definitions. */
+.checkout-modal .checkout-modal-actions button {
+    border-radius: var(--current-border-radius); /* Standard button radius */
+}
+.shipping-option, .pickup-location-option, .payment-option {
+    border-radius: var(--current-border-radius);
+}
+#new-card-form .form-group input[type="text"] {
+/* --- Material Design Modal Styles --- */
+
+.checkout-modal .checkout-modal-content {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); /* Material-like shadow */
+    padding: 24px; /* Standard Material padding */
+    max-width: 560px; /* Common Material Dialog width */
+    /* border-radius is var(--border-radius-large) which is 12px - this is fine */
+}
+
+.checkout-modal h2 {
+    font-size: 1.5rem; /* 24sp equivalent */
+    font-weight: 500;
+    margin-top: 0; /* Remove any default top margin */
+    margin-bottom: 20px;
+    color: #fff; /* White text for contrast */
+    line-height: 1.35;
+}
+
+.checkout-modal .checkout-modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.8rem;
+    color: var(--current-text-color-subtle);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px; /* Increase click target */
+    line-height: 1;
+    transition: color 0.2s ease;
+    z-index: 1; /* Ensure it's above content if there's overlap */
+}
+
+.checkout-modal .checkout-modal-close-btn:hover {
+    color: var(--current-text);
+}
+
+/* Action Buttons Area */
+.checkout-modal .checkout-modal-actions {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    padding-top: 16px;
+    margin-top: 48px; /* Increased space above actions */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Lighter separator for dark bg */
+}
+
+.checkout-modal .checkout-modal-actions button {
+    padding: 10px 16px; /* Material button padding */
+    font-size: 0.875rem; /* 14sp */
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 4px; /* Material button border-radius */
+    margin-left: 8px;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    line-height: 1.75;
+    border: none; /* Remove default borders from general button styles */
+}
+
+.checkout-modal .checkout-modal-actions button:first-child {
+    margin-left: 0;
+}
+
+/* Primary Button Style (e.g., Proceed, Confirm) */
+.checkout-modal .checkout-modal-actions button#checkout-modal-proceed-btn,
+.checkout-modal .checkout-modal-actions button#shipping-continue-btn,
+.checkout-modal .checkout-modal-actions button#payment-confirm-btn {
+    background-color: var(--current-button-bg); /* Use theme's primary button color */
+    color: var(--current-button-text);
+}
+
+.checkout-modal .checkout-modal-actions button#checkout-modal-proceed-btn:hover,
+.checkout-modal .checkout-modal-actions button#shipping-continue-btn:hover,
+.checkout-modal .checkout-modal-actions button#payment-confirm-btn:hover {
+    filter: brightness(90%); /* Darken slightly on hover */
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12);
+}
+
+/* Secondary/Text Button Style (e.g., Modify, Back) */
+.checkout-modal .checkout-modal-actions button#checkout-modal-modify-btn,
+.checkout-modal .checkout-modal-actions button#shipping-back-btn,
+.checkout-modal .checkout-modal-actions button#payment-back-btn {
+    background-color: transparent;
+    color: var(--current-accent-color-green); /* Use accent color for text buttons */
+}
+
+.checkout-modal .checkout-modal-actions button#checkout-modal-modify-btn:hover,
+.checkout-modal .checkout-modal-actions button#shipping-back-btn:hover,
+.checkout-modal .checkout-modal-actions button#payment-back-btn:hover {
+    background-color: var(--current-secondary-button-bg); /* Using existing variable for subtle hover */
+}
+
+/* Cart Review Modal Specifics */
+#checkout-review-modal #checkout-modal-items-container p, /* For empty/loading states */
+#checkout-shipping-modal #pickup-locations-list p { /* For loading/empty states */
+    padding: 24px 0;
+    text-align: center;
+    color: var(--current-text-color-subtle);
+    font-size: 1rem;
+    margin: 0; /* Reset margin for these paragraphs */
+}
+
+#checkout-review-modal .checkout-modal-summary {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--current-card-border);
+}
+#checkout-review-modal .checkout-modal-summary p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+#checkout-review-modal #checkout-modal-items-container .checkout-modal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--current-card-border);
+}
+#checkout-review-modal #checkout-modal-items-container .checkout-modal-item:last-child {
+    border-bottom: none;
+}
+#checkout-review-modal #checkout-modal-items-container .checkout-modal-item-name {
+    flex-grow: 1;
+    margin-right: 8px;
+    font-size: 0.95rem;
+}
+#checkout-review-modal #checkout-modal-items-container .checkout-modal-item-qty {
+    margin-right: 8px;
+    font-size: 0.9rem;
+    color: var(--current-text-color-subtle);
+}
+#checkout-review-modal #checkout-modal-items-container .checkout-modal-item-price {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Shipping Modal Specifics */
+.shipping-options-container, .payment-options-container {
+    margin-bottom: 24px;
+}
+.shipping-option, .payment-option {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--current-card-border);
+    cursor: pointer;
+}
+.shipping-option:last-child, .payment-option:last-child {
+    border-bottom: none;
+}
+.shipping-option label, .payment-option label {
+    margin-left: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.shipping-option input[type="radio"], .payment-option input[type="radio"] {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+#pickup-locations-list {
+    margin-top: 16px;
+    padding-left: 28px; /* Indent under radio button */
+}
+.pickup-location-option {
+    padding: 8px 0;
+    font-size: 0.95rem;
+}
+.pickup-location-option label {
+    margin-left: 8px;
+}
+
+/* Payment Modal Specifics */
+.card-details-form {
+    padding-left: 28px; /* Indent under radio button */
+    margin-top: 8px;
+}
+.card-details-form p {
+    font-size: 0.9rem;
+    color: var(--current-text-color-subtle);
+    margin: 4px 0;
+}
+#new-card-form .form-group {
+    margin-bottom: 16px;
+}
+#new-card-form .form-group label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--current-text-color-subtle);
+    margin-bottom: 4px;
+}
+#new-card-form .form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--current-input-border);
+    border-radius: 4px;
+    background-color: var(--current-bg);
+    color: var(--current-text);
+    font-size: 1rem;
+}
+#new-card-form .form-group input[type="text"]:focus {
+    border-color: var(--current-accent-color-green);
+    box-shadow: 0 0 0 2px rgba(var(--rgb-accent-color-green, 88, 176, 121), 0.2); /* Needs --rgb-accent-color-green */
+    outline: none;
+}
+#save-card-btn { /* Style for the "Save Card" button inside the form */
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 4px;
+    margin-top: 8px;
+    background-color: var(--current-secondary-button-bg);
+    color: var(--current-secondary-button-text);
+    border: 1px solid var(--current-accent-color-green);
+}
+#save-card-btn:hover {
+    filter: brightness(95%);
+}
+
+/* Ensure radio buttons are styled consistently */
+input[type="radio"] {
+    accent-color: var(--current-accent-color-green); /* Modern way to color radio/checkbox */
+    transform: scale(1.1); /* Slightly larger */
+    margin-right: 10px;
+}
+
+/* General text within modal content area */
+.checkout-modal .checkout-modal-content p,
+.checkout-modal .checkout-modal-content div { /* For general text containers */
+    line-height: 1.6;
+}
+    border-radius: var(--current-border-radius);
+}
+
+
+/* Responsive adjustments (existing ones should largely work, might need fine-tuning) */
+@media (max-width: 1200px) { /* Adjust breakpoint for when header items might wrap */
+    .header-main-nav {
+        display: none; /* Example: Hide nav on smaller screens, or convert to hamburger */
+    }
+    .header-search-container {
+        width: 250px;
+    }
+     body.cart-sidebar-expanded header {
+        padding-left: 2rem; /* Remove sidebar offset if header content is centered or sidebar collapses */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Stack header items or use a hamburger menu */
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+    }
+    .header-logo-nav, .header-search-container, .header-title-actions {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+    .header-logo-nav { order: 1; }
+    .header-search-container { order: 2; }
+    .header-title-actions { order: 3; }
+
+    body { padding-top: 150px; /* Approximate new header height */ }
+
+
+    /* Adjust sidebar for smaller screens if needed, e.g., make it overlay */
+    .cart-sidebar {
+        width: 280px; /* Slightly narrower */
+        top: 0; /* If header is not fixed or changes */
+        height: 100vh;
+        z-index: 1001; /* Above everything if overlaying */
+        transform: translateX(-100%); /* Collapsed by default on mobile */
+    }
+    .cart-sidebar.collapsed {
+        transform: translateX(-100%);
+    }
+    /* This means JS needs to handle toggle on mobile, or always show a toggle icon */
+    #cart-sidebar-toggle-btn { /* Show toggle on mobile */
+        display: block !important; 
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1002; /* Above sidebar */
+        background-color: var(--current-button-bg);
+        color: var(--current-button-text);
+    }
+    body.cart-sidebar-expanded .cart-sidebar {
+        transform: translateX(0);
+    }
+    body.cart-sidebar-expanded main,
+    body.cart-sidebar-expanded header, /* Header won't need margin if sidebar overlays */
+    body.cart-sidebar-expanded footer {
+        margin-left: 0; /* No margin shift if sidebar overlays */
+    }
+     body.cart-sidebar-expanded #cart-sidebar-toggle-btn {
+        left: calc(280px + 15px); /* Move toggle button with sidebar */
+     }
+
+    #custom-hero-section { padding: 2rem 1rem; }
+    .main-content-title { font-size: 2.2rem; }
+    #custom-hero-section .subtitle { font-size: 1.1rem; }
+    .custom-hero-actions .btn-hero { padding: 0.7rem 1.3rem; font-size: 0.9rem; }
+    .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+@media (max-width: 480px) {
+    body { padding-top: 180px; /* Approximate new header height */ }
+    .main-content-title { font-size: 1.8rem; }
+    #custom-hero-section .subtitle { font-size: 1rem; }
+    .product-card img { height: 150px; }
+    .header-logo-text { font-size: 1.5rem; }
+    .header-search-container { width: 90%; }
+    .main-search-input { font-size: 0.8rem; }
+}
+
+/* Ensure existing flying animation and modal styles are largely compatible */
+/* Keyframe animations and general modal structure should be okay */

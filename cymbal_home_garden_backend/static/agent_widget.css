@@ -1,0 +1,797 @@
+/* Styles for agent_widget.html - can be embedded or standalone */
+/* The body styles below are for standalone viewing of agent_widget.html. */
+/* When embedded, these might conflict, so they are commented out by default. */
+/*
+body.agent-widget-standalone {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #333; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+*/
+
+.agent-widget {
+    background-image: url('/static/images/pt.jpg');
+    background-size: cover;
+    border-radius: 25px; /* Rounded corners */
+    position: fixed;
+    bottom: 30px; /* Standard distance from bottom */
+    right: 30px;  /* Standard distance from right */
+    /* transform: translate(-50%, -50%); Remove transform used for centering */
+    z-index: 1000; /* Ensure it's on top of other page content */
+    display: none; /* Hidden by default - JS will change to flex when active */
+    width: 320px; /* Slightly wider for better spacing */
+    height: 600px; /* Slightly taller */
+    /* background-color, border-radius, box-shadow will be primarily controlled by style.css glassmorphism */
+    /* background-color: #0A2E1A; */ /* Commented out to allow style.css to apply glass effect */
+    /* border-radius: 25px; */ /* Commented out */
+    /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); */ /* Commented out */
+    /* Ensure these properties from style.css can apply:
+       background-color: var(--current-glass-bg);
+       backdrop-filter: blur(var(--current-glass-blur));
+       -webkit-backdrop-filter: blur(var(--current-glass-blur));
+       border-radius: var(--current-glass-border-radius);
+       box-shadow: 0 8px 32px 0 var(--current-glass-shadow);
+       border: 1px solid var(--current-glass-border-color);
+    */
+    display: flex; /* This will be set by JavaScript when the widget is shown */
+    flex-direction: column;
+    color: var(--current-text); /* Use theme text color for better compatibility */
+    overflow: hidden; /* Important for rounded corners and backdrop-filter */
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px; /* Adjusted padding */
+    /* Consider making header background slightly different for depth */
+    background-color: rgba(0,0,0,0.05); /* Subtle dark tint for light mode, light for dark */
+    border-bottom: 1px solid var(--current-glass-border-color); /* Use glass border color */
+    border-top-left-radius: var(--current-glass-border-radius); /* Match parent radius */
+    border-top-right-radius: var(--current-glass-border-radius); /* Match parent radius */
+}
+
+body.night-mode .widget-header {
+    background-color: rgba(255,255,255,0.05); /* Subtle light tint for dark mode */
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Allow it to take space */
+}
+
+.logo {
+    font-size: 1.5em; /* Icon size */
+    color: var(--current-button-bg); /* Use theme color */
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; /* Container for icon */
+    height: 30px;
+}
+
+.logo .fa-leaf {
+    filter: drop-shadow(0 0 2px rgba(76, 175, 80, 0.7));
+}
+
+.title {
+    font-size: 0.95em;
+    font-weight: 600; /* Slightly bolder */
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    background-color: #32CD32; /* Lime green for status */
+    border-radius: 50%;
+    border: 1px solid #0A2E1A;
+    margin-left: 8px; /* Space from title */
+    align-self: center; /* Vertically align with title center */
+    position: relative;
+    top: -8px; /* Nudge to be near baseline of title */
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+}
+
+.minimize-btn,
+.close-btn {
+    margin-left: 15px; /* Increased spacing */
+    cursor: pointer;
+    font-size: 1em; /* Adjusted icon size */
+    color: var(--current-text); /* Use theme text color */
+    opacity: 0.7;
+}
+
+.minimize-btn:hover,
+.close-btn:hover {
+    color: var(--current-text);
+    opacity: 1;
+}
+
+.widget-body {
+    flex-grow: 1;
+    overflow: hidden; /* Added */
+    display: flex;
+    flex-direction: column; /* Added */
+    padding: 10px; /* Changed from 20px */
+    background-color: rgba(0, 0, 0, 0.5); /* Darker overlay for readability */
+    color: #fff; /* White text for contrast */
+    /* justify-content: center; Removed */
+    /* align-items: center; Removed */
+}
+
+.audio-visualizer-container {
+    width: 160px;
+    height: 160px;
+    border: 4px solid var(--current-button-bg); /* Use theme color */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 15px var(--current-button-bg-transparent); /* Use theme shadow */
+}
+
+.audio-visualizer {
+    width: 80%; /* Adjusted width for visualizer content */
+    height: 60%; /* Adjusted height for visualizer content */
+    display: flex;
+    justify-content: space-around; /* Distribute bars evenly */
+    align-items: center; /* Align bars vertically centered */
+}
+
+.audio-visualizer .bar {
+    background-color: var(--current-button-bg); /* Use theme color */
+    width: 5px; /* Bar width */
+    height: 10%; /* Default minimal height */
+    border-radius: calc(var(--current-glass-border-radius) - 10px); /* Smaller radius for bars */
+    transform-origin: bottom; /* Animation scales from bottom */
+    transform: scaleY(0.1); /* Default scale */
+    transition: transform 0.1s ease-out; /* Smooth transition for JS updates */
+}
+
+/* Styles for Video Mode */
+.video-display-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #082515; */ /* Removed to let glass show */
+}
+
+#agent-video-element {
+    width: calc(100% - 40px); /* Full width with some padding */
+    max-height: 70%; /* Limit height */
+    background-color: rgba(0,0,0,0.5); /* Darker semi-transparent bg for video */
+    border-radius: var(--current-glass-border-radius); /* Theme radius */
+    margin-bottom: 15px;
+    object-fit: cover; /* Cover the area, might crop */
+}
+
+.stop-video-btn {
+    background-color: var(--current-button-danger-bg); /* Use theme danger color */
+    color: var(--current-button-danger-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--current-glass-border-radius); /* Theme radius */
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.stop-video-btn i {
+    margin-right: 8px;
+}
+
+.stop-video-btn:hover {
+    background-color: var(--current-button-danger-hover-bg); /* Theme hover */
+}
+
+/* Styles for Text Chat Mode */
+.text-chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Fill widget-body */
+    width: 100%;
+    overflow: hidden; /* Prevent internal overflow from breaking layout */
+    padding: 0; /* Changed from 10px */
+    box-sizing: border-box; /* Added */
+}
+
+.message-area {
+    flex-grow: 1; /* Allow it to take available space */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Kept padding, can be adjusted e.g. padding: 10px 8px; */
+    /* margin-bottom: 10px; Removed */
+    background-color: rgba(0,0,0,0.1); /* Subtle dark background for message area */
+    border-radius: calc(var(--current-glass-border-radius) - 4px); /* Slightly smaller radius */
+    display: flex; /* To stack messages */
+    flex-direction: column; /* Stack messages vertically */
+    gap: 10px; /* Space between messages */
+}
+
+.chat-input {
+    flex-grow: 1; /* Take available width */
+    padding: 10px 12px; /* Reduced padding */
+    border-radius: var(--current-glass-border-radius); /* Theme radius */
+    border: 1px solid var(--current-glass-border-color); /* Use glass border */
+    background-color: var(--current-glass-bg); /* Use glass bg for input */
+    color: var(--current-text); /* Theme text color */
+    font-size: 0.9em;
+    margin-right: 5px; /* Reduced space before send button */
+}
+
+.chat-input::placeholder {
+    color: var(--current-text);
+    opacity: 0.6;
+}
+
+
+.widget-footer {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px; /* Reduced padding */
+    border-top: 1px solid var(--current-glass-border-color); /* Use glass border */
+    background-color: rgba(0,0,0,0.05); /* Subtle dark tint for light mode, light for dark */
+    gap: 8px; /* Reduced spacing between input area and icon group */
+    border-bottom-left-radius: var(--current-glass-border-radius); /* Match parent radius */
+    border-bottom-right-radius: var(--current-glass-border-radius); /* Match parent radius */
+}
+
+body.night-mode .widget-footer {
+    background-color: rgba(255,255,255,0.05); /* Subtle light tint for dark mode */
+}
+
+.footer-icon {
+    width: 36px; /* Reduced size */
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1em; /* Reduced icon font size */
+    color: var(--current-text); /* Theme text */
+    transition: background-color 0.2s ease;
+}
+
+.footer-icon i {
+    line-height: 1; /* Ensure icons are not cut off */
+}
+
+.chat-icon,
+.mic-icon,
+.video-toggle-btn {
+    background-color: var(--current-button-neutral-bg); /* Use theme neutral button */
+}
+
+.chat-icon:hover,
+.mic-icon:hover,
+.video-toggle-btn:hover {
+    background-color: var(--current-button-neutral-hover-bg); /* Theme hover */
+}
+
+.mic-icon.active { /* Style for when microphone is active */
+    background-color: var(--current-button-bg); /* Theme primary button */
+    color: var(--current-button-text);
+}
+.video-toggle-btn.active { /* Style for when video is active */
+    background-color: var(--current-button-bg); /* Theme primary button */
+    color: var(--current-button-text);
+}
+
+
+.text-input-placeholder {
+    color: var(--current-text); /* Muted color for placeholder dots */
+    opacity: 0.5;
+    font-size: 2em; /* Larger dots */
+    letter-spacing: 3px;
+    line-height: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.end-call-icon {
+    background-color: var(--current-button-danger-bg); /* Theme danger */
+    color: var(--current-button-danger-text);
+}
+
+/* Scrollbar Styling */
+.message-area::-webkit-scrollbar {
+    width: 6px;
+}
+.message-area::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1); /* Keep subtle */
+    border-radius: calc(var(--current-glass-border-radius) - 10px);
+}
+.message-area::-webkit-scrollbar-thumb {
+    background: var(--current-button-bg); /* Theme color */
+    border-radius: calc(var(--current-glass-border-radius) - 10px);
+}
+.message-area::-webkit-scrollbar-thumb:hover {
+    background: var(--current-button-bg); /* Theme hover (can be same or slightly darker if var exists) */
+    opacity: 0.8;
+}
+
+/* Chat Input Area */
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* Added */
+    /* padding-top: 10px; Removed */
+    /* border-top: 1px solid #154225; Removed */
+}
+
+.footer-action-icons { /* New Rule */
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Reduced spacing between individual icons */
+    flex-shrink: 0; /* Prevent this container from shrinking */
+}
+
+.send-btn {
+    background-color: var(--current-button-bg); /* Theme color */
+    color: var(--current-button-text);
+    border: none;
+    border-radius: 50%; /* Circular button */
+    width: 36px; /* Reduced size */
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1em; /* Reduced icon font size */
+    transition: background-color 0.2s ease;
+}
+.send-btn:hover {
+    background-color: var(--current-button-bg); /* Theme hover */
+    opacity: 0.8;
+}
+.send-btn i {
+    position: relative;
+    left: 1px; /* Slight nudge for paper plane icon centering */
+}
+
+/* Message Styling */
+.message {
+    padding: 8px 12px;
+    border-radius: var(--current-glass-border-radius); /* Theme radius for messages */
+    max-width: 75%;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: column; /* Stack text and timestamp */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for messages */
+}
+.message p {
+    margin: 0 0 4px 0; /* Space between text and timestamp */
+    line-height: 1.4;
+}
+.message .timestamp {
+    font-size: 0.7em;
+    opacity: 0.7; /* Muted timestamp */
+    align-self: flex-end; /* Timestamp to the right */
+}
+
+.user-message {
+    background-color: var(--current-button-bg); /* User message bubble color with theme */
+    color: var(--current-button-text);
+    align-self: flex-end; /* Align user messages to the right */
+    border-bottom-right-radius: calc(var(--current-glass-border-radius) - 10px); /* Chat bubble tail effect */
+}
+.user-message .timestamp {
+    color: var(--current-button-text); /* Lighter timestamp for dark bubble */
+    opacity: 0.8;
+}
+
+.agent-message {
+    background-color: var(--current-card-bg); /* Agent message bubble color, slightly different */
+    color: var(--current-text);
+    align-self: flex-start; /* Align agent messages to the left */
+    border-bottom-left-radius: calc(var(--current-glass-border-radius) - 10px); /* Chat bubble tail effect */
+    border: 1px solid var(--current-glass-border-color); /* Subtle border for agent messages */
+}
+
+/* --- Product Recommendations Styling --- */
+
+.product-recommendations-block {
+    width: 100%;
+    margin-top: 10px; /* Space above the recommendations block */
+    margin-bottom: 10px; /* Space below the recommendations block */
+    padding: 0 5px; /* Slight horizontal padding if needed */
+    box-sizing: border-box;
+}
+
+.recommendations-title {
+    font-size: 0.9em; /* Slightly smaller than main message text */
+    font-weight: 600;
+    color: var(--current-text); /* Use theme text color */
+    opacity: 0.9;
+    margin-bottom: 12px;
+    padding-left: 5px; /* Align with card padding if any */
+    text-align: left;
+}
+
+.product-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between product cards */
+}
+
+.product-recommendations-block .product-card { /* Scoped to recommendations */
+    display: flex;
+    align-items: center;
+    background-color: var(--current-glass-bg); /* Glass background */
+    backdrop-filter: blur(calc(var(--current-glass-blur) - 4px)); /* Slightly less blur if needed */
+    -webkit-backdrop-filter: blur(calc(var(--current-glass-blur) - 4px));
+    border-radius: calc(var(--current-glass-border-radius) - 4px); /* Consistent radius */
+    padding: 12px;
+    box-shadow: 0 2px 4px var(--current-glass-shadow);
+    border: 1px solid var(--current-glass-border-color);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.product-recommendations-block .product-card:hover {
+    box-shadow: 0 4px 8px var(--current-glass-shadow);
+}
+
+.product-recommendations-block .product-card-image {
+    width: 60px; /* Adjust size as needed */
+    height: 60px;
+    border-radius: calc(var(--current-glass-border-radius) - 8px); /* Rounded corners for the image */
+    object-fit: cover; /* Ensure image covers the area well */
+    margin-right: 12px;
+    border: 1px solid var(--current-glass-border-color); /* Optional subtle border for image */
+}
+
+.product-recommendations-block .product-card-details {
+    flex-grow: 1; /* Takes up available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center text if needed */
+    gap: 4px; /* Space between name and price */
+}
+
+.product-recommendations-block .product-card-name {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--current-text); /* Darker text for readability on light background */
+    margin: 0;
+    line-height: 1.3;
+}
+
+.product-recommendations-block .product-card-price {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--current-text); /* Slightly lighter than name */
+    opacity: 0.8;
+    margin: 0;
+}
+
+.product-recommendations-block .product-card-link {
+    color: var(--current-button-bg); /* Theme green color for the icon */
+    font-size: 1.1em; /* Icon size */
+    text-decoration: none;
+    padding: 8px; /* Clickable area */
+    margin-left: 10px; /* Space from text details */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease-in-out;
+}
+
+.product-recommendations-block .product-card-link:hover {
+    color: var(--current-button-bg); /* Darker green on hover */
+    opacity: 0.7;
+}
+
+/* Ensure product recommendations are not styled like user/agent messages */
+.product-recommendations-block .message,
+.product-recommendations-block .user-message,
+.product-recommendations-block .agent-message {
+    /* Override any conflicting message styles if necessary, or ensure specificity */
+    background-color: transparent;
+    padding: 0;
+    align-self: initial;
+    max-width: 100%;
+}
+
+/* --- Image Options Popup & Camera View Styling --- */
+
+.widget-footer {
+    position: relative; /* Needed for absolute positioning of the popup */
+}
+
+.image-options-popup {
+    position: absolute;
+    bottom: 50px; /* Position above the footer icons */
+    right: 10px;  /* Align with the right side of the footer */
+    background-color: var(--current-glass-bg); /* Glass background */
+    backdrop-filter: blur(var(--current-glass-blur));
+    -webkit-backdrop-filter: blur(var(--current-glass-blur));
+    border-radius: var(--current-glass-border-radius); /* Theme radius */
+    box-shadow: 0 -2px 10px var(--current-glass-shadow);
+    border: 1px solid var(--current-glass-border-color);
+    padding: 8px;
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 8px;
+    z-index: 100; /* Ensure it's above other elements */
+}
+
+.image-options-popup button.footer-icon {
+    width: auto; /* Allow button to size to content */
+    padding: 8px 12px; /* Add padding for text */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align icon and text to the left */
+    background-color: var(--current-button-neutral-bg); /* Theme neutral button */
+    border-radius: calc(var(--current-glass-border-radius) - 4px); /* Consistent radius */
+    font-size: 0.9em; /* Slightly smaller text */
+}
+
+.image-options-popup button.footer-icon:hover {
+    background-color: var(--current-button-neutral-hover-bg); /* Theme hover */
+}
+
+.image-options-popup button.footer-icon .icon-text {
+    margin-left: 8px; /* Space between icon and text */
+    color: var(--current-text); /* Theme text */
+}
+
+.image-options-popup button.footer-icon i {
+    font-size: 1em; /* Ensure icon size is consistent */
+    width: 16px; /* Fixed width for icon alignment */
+    text-align: center;
+}
+
+
+/* Camera View Styling (Phase 2) */
+.camera-view-container {
+    position: absolute; /* Or fixed, to overlay */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85); /* Dark overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 200; /* Above everything else */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.camera-view-container #cameraFeed {
+    width: 100%;
+    max-width: 400px; /* Limit width on larger screens if widget is scaled */
+    height: auto;
+    border-radius: var(--current-glass-border-radius); /* Theme radius */
+    margin-bottom: 10px;
+    background-color: rgba(0,0,0,0.7); /* Darker semi-transparent bg for video feed */
+}
+
+.camera-controls {
+    display: flex;
+    gap: 15px;
+}
+
+.camera-controls .capture-btn {
+    background-color: var(--current-button-bg); /* Theme primary */
+    color: var(--current-button-text);
+    /* Inherits .footer-icon styles for size, border-radius will be overridden by general button style in style.css */
+}
+.camera-controls .cancel-camera-btn {
+    background-color: var(--current-button-danger-bg); /* Red for cancel */
+    color: var(--current-button-danger-text);
+    /* Inherits .footer-icon styles for size, border-radius will be overridden by general button style in style.css */
+}
+
+
+.camera-controls .capture-btn:hover{
+    background-color: var(--current-button-bg);
+    opacity: 0.8;
+}
+.camera-controls .cancel-camera-btn:hover {
+    background-color: var(--current-button-danger-hover-bg);
+    opacity: 0.8; /* Or use theme hover if defined */
+}
+
+/* Ensure .footer-icon.image-options-toggle-btn uses existing styles */
+.image-options-toggle-btn {
+    /* Uses existing .footer-icon styles */
+    /* Add specific hover/active if needed */
+}
+
+/* --- Checkout Modal Styling --- */
+.checkout-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1050; /* Above other content but potentially below critical alerts */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.5); /* Dimmed background */
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    pointer-events: none;
+    align-items: center; /* Vertically center */
+    justify-content: center; /* Horizontally center */
+}
+
+.checkout-modal.modal-active {
+    display: flex; /* Or block, depending on content */
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+}
+
+.checkout-modal-content {
+    background-color: var(--current-card-bg); /* Use theme card background */
+    color: var(--current-text); /* Use theme text color */
+    margin: auto; /* Centering for older browsers or if display:flex on parent is removed */
+    padding: 25px;
+    border: 1px solid var(--current-glass-border-color); /* Theme border */
+    border-radius: var(--current-glass-border-radius); /* Theme radius */
+    width: 90%;
+    max-width: 500px; /* Max width for the modal */
+    min-height: 300px; /* Minimum height */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout-modal-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--current-glass-border-color);
+    margin-bottom: 20px;
+}
+
+.checkout-modal-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--current-text);
+}
+
+.checkout-modal-body {
+    flex-grow: 1;
+    overflow-y: auto; /* For scrollable content if it exceeds max-height */
+    max-height: 60vh; /* Example max height */
+}
+
+.checkout-modal-footer {
+    padding-top: 15px;
+    border-top: 1px solid var(--current-glass-border-color);
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px;
+}
+
+.modal-close-btn {
+    color: var(--current-text);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: var(--current-button-danger-bg); /* Or a theme accent color */
+    text-decoration: none;
+}
+
+/* Form Styling in Modals */
+.checkout-modal .form-group {
+    margin-bottom: 15px;
+}
+
+.checkout-modal .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.checkout-modal .form-group input[type="text"],
+.checkout-modal .form-group input[type="email"],
+.checkout-modal .form-group input[type="tel"],
+.checkout-modal .form-group input[type="number"],
+.checkout-modal .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--current-glass-border-color);
+    border-radius: calc(var(--current-glass-border-radius) - 4px);
+    background-color: var(--current-input-bg, var(--current-glass-bg)); /* Allow override or use glass */
+    color: var(--current-text);
+    box-sizing: border-box;
+    font-size: 0.95em;
+}
+
+.checkout-modal .form-group input[type="text"]:focus,
+.checkout-modal .form-group input[type="email"]:focus,
+.checkout-modal .form-group input[type="tel"]:focus,
+.checkout-modal .form-group input[type="number"]:focus,
+.checkout-modal .form-group select:focus {
+    outline: none;
+    border-color: var(--current-button-bg); /* Highlight with theme color */
+    box-shadow: 0 0 0 2px var(--current-button-bg-transparent);
+}
+
+/* Button Styling in Modals */
+.checkout-modal .btn {
+    padding: 10px 20px;
+    border-radius: calc(var(--current-glass-border-radius) - 4px);
+    border: none;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.checkout-modal .btn-primary {
+    background-color: var(--current-button-bg);
+    color: var(--current-button-text);
+}
+
+.checkout-modal .btn-primary:hover {
+    opacity: 0.85;
+}
+
+.checkout-modal .btn-secondary {
+    background-color: var(--current-button-neutral-bg);
+    color: var(--current-text);
+    border: 1px solid var(--current-glass-border-color);
+}
+
+.checkout-modal .btn-secondary:hover {
+    background-color: var(--current-button-neutral-hover-bg);
+}
+
+/* Responsive adjustments for modals */
+@media (max-width: 600px) {
+    .checkout-modal-content {
+        width: 95%;
+        margin: 10% auto; /* Adjust margin for smaller screens */
+        padding: 20px;
+    }
+
+    .checkout-modal-header h2 {
+        font-size: 1.3em;
+    }
+
+    .modal-close-btn {
+        font-size: 1.5em;
+        top: 10px;
+        right: 15px;
+    }
+
+    .checkout-modal .btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}
