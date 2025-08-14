@@ -122,14 +122,14 @@ class Customer(BaseModel):
         return Customer(
             customer_id=current_customer_id,
             account_number="428765091",
-            customer_first_name="Alex",
-            customer_last_name="Johnson",
-            email="alex.johnson@example.com",
+            customer_first_name="josh",
+            customer_last_name="belay",
+            email="josh.belay@example.com",
             phone_number="+1-702-555-1212",
             customer_start_date="2022-06-10",
             years_as_customer=2,
             billing_address=Address(
-                street="123 Main St", city="Anytown", state="CA", zip="12345"
+                street="bar khova 209", city="ashkelon", state="south", zip="783350"
             ),
             purchase_history=[  # Example purchase history
                 Purchase(
@@ -188,7 +188,7 @@ class Customer(BaseModel):
             ),
             garden_profile=GardenProfile(
                 type="backyard",
-                size="medium",
+                size="small",
                 sun_exposure="full sun",
                 soil_type="unknown",
                 interests=["flowers", "vegetables"],
