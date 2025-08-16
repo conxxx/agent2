@@ -156,11 +156,7 @@ root_agent = Agent(
         initiate_payment_ui, # Added for payment UI
         agent_processes_shipping_choice, # Added for processing shipping choices
         submit_order_and_clear_cart, # Added for final order submission
-        # display_checkout_item_selection_ui, # REMOVED
-        # display_shipping_options_ui, # REMOVED
-        # display_pickup_locations_ui, # REMOVED
-        # display_payment_methods_ui, # REMOVED
-        # display_order_confirmation_ui, # REMOVED
+      
     ],
     before_tool_callback=before_tool,
     after_tool_callback=after_tool,
