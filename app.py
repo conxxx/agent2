@@ -79,7 +79,7 @@ DATABASE = 'ecommerce.db'
 
 # --- Configuration for Google Cloud Retail API ---
 # User needs to fill these in based on their GCP setup
-GCP_PROJECT_ID = "roo-code-459017"  # Replace with your Project ID
+GCP_PROJECT_ID = "elemental-day-467117-h4"  # Replace with your Project ID
 RETAIL_API_LOCATION = "global"          # Or your specific location e.g., "us-east1"
 RETAIL_CATALOG_ID = "default_catalog"   # Replace with your Catalog ID
 # This is the ID of the "Search" Serving Config you create in the Retail Console
